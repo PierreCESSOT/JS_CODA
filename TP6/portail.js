@@ -1,62 +1,51 @@
-const inputPseudo = document.getElementById("NamePlayer");
-const startBtn = document.getElementById("join-btn");
+const container = document.getElementById('skin-selector');
 
-startBtn.addEventListener("click", () => {
-    const pseudo = inputPseudo.value;
+const cropX = 0;
+const cropY = 128;
+const cropWidth = 64;
+const cropHeight = 64;
 
-    if (pseudo.trim() === "") {
-        alert("Veuillez entrer un pseudo");
-    }
-    console.log("Pseudo :", pseudo);
-});
-
-
-
-
-const skinSelector = document.getElementById("skin-selector");
-let selectedSkin = null;
 
 for (let i = 1; i <= 29; i++) {
-    // création de canvas
-    const canvas = document.createElement("canvas");
-    canvas.width = 64;
-    canvas.height = 64;
-    canvas.classList.add("skin-canvas");
+    const label = document.createElement('label');
+    label.setAttribute('for', `sprite${i}`);
 
-    skinSelector.appendChild(canvas);
+    container.appendChild(label);
 
-    const ctx = canvas.getContext("2d");
+    const input = document.createElement('input');
+    input.setAttribute('type', 'radio');
+    input.setAttribute('id', `sprite${i}`);
+    input.setAttribute('name', `sprite`);
+    input.setAttribute('value', `${i}`);
+    input.required = true;
 
-    // Charger le sprite sheet
+    let container2 = document.querySelector(`label[for="sprite${i}"]`)
+
+    const canvas = document.createElement('canvas');
+    canvas.width = cropWidth;
+    canvas.height = cropHeight;
+    container2.appendChild(canvas);
+    container2.appendChild(input);
+
+    let context = canvas.getContext('2d');
     const img = new Image();
-    img.src = `assets/${i}.png`;
 
-    img.onload = () => {
-        ctx.drawImage(
+    img.onload = function () {
+        context.drawImage(
             img,
-            0, 10 * 64, 64, 64,   // source x, y, w, h
-            0, 0, 64, 64    // destination ""
+            cropX, cropY, cropWidth, cropHeight,
+            0, 0, canvas.width, canvas.height
         );
     };
-
-    // Sélection du skin
-    canvas.addEventListener("click", () => {
-        // Retirer l'ancienne sélection
-        document.querySelectorAll(".skin-canvas").forEach(c => {
-            c.classList.remove("skin-selected");
-        });
-
-        // Ajouter la nouvelle sélection
-        canvas.classList.add("skin-selected");
-        selectedSkin = i;
-
-        // Sauvegarder
-        localStorage.setItem("selectedSkin", i);
-
-        console.log("Skin sélectionné :", i);
-
-
-
-    });
+    img.src = `assets/${i}.png`;
 }
-const skin = localStorage.getItem("selectedSkin");
+
+document.querySelector("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    let formData = new FormData(document.querySelector('form'));
+    const data = Object.fromEntries(formData);
+    let number = data["sprite"];
+    delete data.sprite;
+    data["skinPath"] = `assets/${number}.png`;
+    console.log(data);
+});
