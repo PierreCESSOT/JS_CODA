@@ -1,0 +1,108 @@
+* {
+    box-sizing: border-box;
+    font-family: "Rajdhani", Arial, sans-serif;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: rgb(92, 130, 92);
+    background-image: url("porsche.png");
+    background-size: 101%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container {
+    width: 420px;
+    padding: 32px;
+    background: rgba(0, 0, 0, 0.60);
+    border: 2px solid rgb(92, 130, 92);
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 35px;
+    font-size: 34px;
+    letter-spacing: 5px;
+    color:rgb(92, 130, 92);
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: rgba(0,0,0,0.6);
+    border: 2px solid rgb(92, 130, 92);
+    color: #fff;
+    font-size: 17px;
+}
+
+
+
+#join-btn {
+    width: 100%;
+    padding: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, rgb(92, 130, 92), rgb(45, 65, 45));
+    border: none;
+    cursor: pointer;
+    color: black;
+}
+
+#join-btn:hover {
+    background: linear-gradient(90deg, rgb(45, 65, 45), rgb(92, 130, 92));
+}
+
+
+/* ====== SÉLECTEUR DE SKINS ===== */
+
+
+.skin-selector {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 64px);
+    gap: 12px;
+    margin: 20px 0;
+    padding: 12px;
+    background: rgba(0, 0, 0, 0.55);
+    border: 2px solid rgb(92, 130, 92);
+    max-height: 280px;
+    overflow-y: auto;
+}
+
+/* Canvas de chaque sprite */
+.skin-canvas {
+    width: 64px;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.6);
+    border: 2px solid rgb(45, 65, 45);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s, border-color 0.15s;
+}
+
+/* Hover */
+.skin-canvas:hover {
+    border-color: rgb(92, 130, 92);
+    transform: scale(1.1);
+}
+
+/* Skin sélectionné */
+.skin-selected {
+    border-color: rgb(92, 130, 92);
+    box-shadow: 0 0 12px rgba(92, 130, 92, 0.9);
+}
+
+/* Scrollbar (optionnel mais propre) */
+.skin-selector::-webkit-scrollbar {
+    width: 6px;
+}
+
+.skin-selector::-webkit-scrollbar-thumb {
+    background: rgb(92, 130, 92);
+}
