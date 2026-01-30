@@ -3,12 +3,12 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from contextlib import asynccontextmanager
 from Game import Game
 
-game = Game(needed_players=1)
+Game = Game(needed_players=1)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     # Startup
-    asyncio.create_task(game.game_loop())
+    asyncio.create_task(Game.Game_loop())
     yield
     # Shutdown (optionnel)
     print("Server shutting down")
@@ -28,13 +28,13 @@ async def websocket_endpoint(ws: WebSocket):
 
     skin_path = skin_path[1:]
 
-    player = game.add_player(ws, name, skin_path)
+    player = Game.add_player(ws, name, skin_path)
     player_id = player.id
 
     try:
         while True:
             data = await ws.receive_json()
-            game.handle_input(player_id, data)
+            Game.handle_input(player_id, data)
 
     except WebSocketDisconnect:
-        game.remove_player(player_id)
+        Game.remove_player(player_id)

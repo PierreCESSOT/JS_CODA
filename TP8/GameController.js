@@ -5,7 +5,7 @@ class GameController {
     // Duration between two server ticks in milliseconds
     this.SERVER_INTERVAL = 1000 / this.SERVER_TICK_RATE;
 
-    this.game = new game();
+    this.Game = new Game();
     this.name = localStorage.getItem("name");
     this.serverUrl = localStorage.getItem("url");
     this.spritePath = localStorage.getItem("spritePath");
@@ -45,7 +45,7 @@ class GameController {
     this.socket.onmessage = (event) => {
       console.log(event.data); // chaîne JSON
       const data = JSON.parse(event.data);
-      this.game.update(data);
+      this.Game.update(data);
     };
   }
 
@@ -119,6 +119,6 @@ class GameController {
   }
 }
 
-// === Start the game controller by instantiating the GameController class ===
+// === Start the Game controller by instantiating the GameController class ===
 // This line will execute the constructor (e.g, launch the frontend)
 new GameController();
